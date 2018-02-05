@@ -48,6 +48,17 @@ page-home {
   height: auto !important;
 }
 
+
+textarea { 
+  //  resize: both;
+
+  max-width: 100%; width: 100%; height: 400vh; 
+}
+
+.textbox {
+  height: 500px;
+}
+
 .ios, .md {
  
 

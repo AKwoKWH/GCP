@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Natural Language Analysis</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label>Input</ion-label>
+    <!--<ion-textarea [(ngModel)]="userInfoForm.selfDescription" name="description" placeholder="" disabled='{{isReadonlyForm}}==false'></ion-textarea>-->
+    <ion-textarea class="textbox" name="description" placeholder="" ></ion-textarea>
+  </ion-item>
+
+  <button ion-button full> Analyze </button>
+
+  <ion-item><br></ion-item>
+
+  <ion-list nopadding>
+    *This web app is developed and maintained by Alex Kwok with Ionic and Google Cloud Platform.
+    <br>
+    <br> Version: 2.2.0
+    <br> © 2017 ALEX KWOK ALL RIGHTS RESERVED
+  </ion-list>
+
+<!--
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-8154344335867642",
+    enable_page_level_ads: true
+  });
+</script>-->
+
+<!--
+  <ion-fab bottom right>
+    <button ion-fab (click)="takePhoto()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </ion-fab>
+-->
+
+</ion-content>

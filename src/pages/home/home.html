@@ -1,14 +1,126 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Pics Analysis & Auto HashTag</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<!--
+  <div>
+    <img src="" id="UploadedImagePreview">
+  </div>
+-->
+  <label class="item fileContainer">
+    <span>
+    <img class="full-image" src="assets/img/upload_placeholder.jpg" *ngIf="UploadedImage==null">
+    <img class="full-image" src="{{UploadedImage}}">
+    <input type="file" name="file" accept="image/*" ngModel (change)="GoogleVisionIdentify($event)">
+    </span>
+  </label>
+
+  <span *ngIf="UploadedImage!=null && IdentifiedImageLabel==null">
+    Analysing ... Please Wait<br>It usually takes less than 30s depends on size.
+  </span>
+
+  <div *ngIf="IdentifiedImageLandmark!=null">
+    <b>Location:</b>
+    <span *ngFor="let result of IdentifiedImageLandmark; let i=index">
+      <b *ngIf="i == 0">{{result.description}}</b> 
+    </span>
+  </div>
+
+  <!--HASHTAGS-->
+  <span *ngFor="let result of IdentifiedImageWeb">
+     <ion-badge>#{{result.description}}</ion-badge><span> </span> 
+  </span>
+  <span *ngFor="let result of IdentifiedImageLogo">
+     <ion-badge>#{{result.description}}</ion-badge><span> </span> 
+  </span>
+  <span *ngFor="let result of IdentifiedImageLabel">
+     <ion-badge>#{{result.description}}</ion-badge><span> </span> 
+  </span>
+
+  <!--IDENTIFIED TEXT-->
+  <div *ngIf="IdentifiedImageText!=null && 1==1"> 
+    <ion-list (click)='toggleSection("Text")'>
+    <p text-left><br><b>Text Identified: </b>
+    <span style="float:right">
+    <a text-right *ngIf="!itemExpand.Text"> Click to Expand</a>
+    <a text-right *ngIf="itemExpand.Text"> Click to Hide</a>
+    </span>
+    </ion-list>
+
+    <section id="text" *ngIf="itemExpand.Text">
+      <span *ngFor="let result of IdentifiedImageText; let i=index">
+        <b *ngIf="i == 0">{{result.description}}</b> 
+      </span>    
+    </section>
+  </div>
+
+  <!--MAP-->
+  <div *ngIf="IdentifiedImageLandmark!=null && 1==1"> 
+    <ion-list (click)='toggleSection("Map")'>
+    <p text-left><br><b>Map: </b>
+    <span style="float:right">
+    <a text-right *ngIf="!itemExpand.Map"> Click to Expand</a>
+    <a text-right *ngIf="itemExpand.Map"> Click to Hide</a>
+    </span>
+    </ion-list>
+
+    <section id="maps" *ngIf="itemExpand.Map">
+      <div #map id="map" style="width: 320px; height: 320px;">Getting the Loaction: <br>{{this.IdentifiedImageLocation}}</div>
+    </section>
+    
+  </div>
+
+  <!--SIMILAR PICS-->
+  <div *ngIf="IdentifiedImageSimilar!=null || IdentifiedImageMatch!=null || IdentifiedImagePartial!=null"> 
+    <ion-list (click)='toggleSection("Similar")'>
+    <p text-left><br><b>Similar Pictures: </b>
+    <span style="float:right">
+    <a text-right *ngIf="!itemExpand.Similar"> Click to Expand</a>
+    <a text-right *ngIf="itemExpand.Similar"> Click to Hide</a>
+    </span>
+    </ion-list>
+
+    <section id="photos" *ngIf="itemExpand.Similar">
+      <span *ngFor="let result of IdentifiedImageMatch; let i=index">
+        <img src="{{result.url}}">
+      </span>
+      <span *ngFor="let result of IdentifiedImagePartial; let i=index">
+        <img src="{{result.url}}">
+      </span>
+      <span *ngFor="let result of IdentifiedImageSimilar; let i=index">
+        <img src="{{result.url}}">
+      </span>
+    </section>
+  </div>
+
+  <ion-item><br></ion-item>
+
+  <ion-list nopadding>
+    *This web app is developed and maintained by Alex Kwok with Ionic and Google Cloud Platform.
+    <br>
+    <br> Version: 2.2.0
+    <br> © 2017 ALEX KWOK ALL RIGHTS RESERVED
+  </ion-list>
+<!--
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-8154344335867642",
+    enable_page_level_ads: true
+  });
+</script>-->
+
+<!--
+  <ion-fab bottom right>
+    <button ion-fab (click)="takePhoto()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </ion-fab>
+-->
+
 </ion-content>
